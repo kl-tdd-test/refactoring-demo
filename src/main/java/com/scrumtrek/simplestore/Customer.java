@@ -29,7 +29,16 @@ public class Customer {
 		
 		for(Rental each: m_Rentals) {
 			double thisAmount = 0;
-			
+
+			// In class Rental :
+			//BillingInfo billingInfo = each.getMovie().getBillingInfo();
+			//thisAmount += billingInfo.amountIncreaser;
+			//if (each.getDaysRented() > billingInfo.daysToBeginAdditionalBilling)
+			//{
+			//	thisAmount += (each.getDaysRented() - billingInfo.daysToBeginAdditionalBilling)
+			// 		* billingInfo.billingMultiplicator;
+			//}
+
 			// Determine amounts for each line
 			switch(each.getMovie().getPriceCode()) {
 				case Regular:
@@ -39,7 +48,15 @@ public class Customer {
 						thisAmount += (each.getDaysRented() - 2) * 1.5;
 					}
 					break;
-	
+
+				case XXX:
+					thisAmount += 2 * 0.85;
+					if (each.getDaysRented() > 2)
+					{
+						thisAmount += (each.getDaysRented() - 2) * 1.5 * 0.85;
+					}
+					break;
+
 				case NewRelease:
 					thisAmount += each.getDaysRented() * 3;
 					break;
@@ -57,9 +74,9 @@ public class Customer {
 			frequentRenterPoints++;
 
 			// Add bonus for a two-day new-release rental
-			if ((each.getMovie().getPriceCode() == PriceCodes.NewRelease) && (each.getDaysRented() > 1))
+			if (each.isRentalBonus())
 			{
-				frequentRenterPoints ++;
+				frequentRenterPoints++;
 			}
 
 			// Show figures for this rental

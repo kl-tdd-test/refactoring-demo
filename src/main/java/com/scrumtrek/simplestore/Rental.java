@@ -16,5 +16,9 @@ public class Rental {
 	public Movie getMovie() {
 		return m_Movie;
 	}
+
+	public boolean isRentalBonus() {
+		return (this.getMovie().getPriceCode() == PriceCodes.NewRelease) && (this.getDaysRented() > 1);
+	}
 }
 
